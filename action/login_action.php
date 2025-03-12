@@ -1,36 +1,36 @@
 <?php
-session_start();
-include '../config/database.php';
+include dirname(__DIR__) . '/config/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"];
+    $phone = $_POST["phone"];
+
+    // Kiểm tra mật khẩu nhập lại
+    if ($password !== $confirm_password) {
+        $alert = "Mật khẩu nhập lại không khớp!";
+        header("Location: ../register.php?alert=" . urlencode($alert) . "&err=1");
+        exit();
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
 
     $db = new Database();
 
-    $where = "email = '$email'";
-    $users = $db->select("users", $where, "1");
+    // Dữ liệu không có dấu nháy đơn
+    $data = array(
+        "username" => $username,
+        "email" => $email,
+        "password" => $password,
+        "phone" => $phone
+    );
 
-    if ($users && count($users) > 0) {
-        $user = $users[0];
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['id'] = $user['id'];
-            $_SESSION['name'] = $user['name'];
-            $alert = "Xin chào, " . $user['name'] . "!";
-            $err = 0;
-            
-            header("Location: ../index.php?alert=" . urlencode($alert));
-            exit();
-        } else {
-            $alert = "Invalid password.";
-            $err = 1;
-        }
-    } else {
-        $alert = "No user found with that email.";
-        $err = 1;
-    }
+    $db->insert("owners", $data); // Giả sử bảng là "owners", bạn có thể đổi tên bảng nếu khác
 
-    header("Location: ../login.php?alert=" . urlencode($alert) . "&err=" . $err);
+    $alert = "Đăng ký thành công!";
+    header("Location: ../login.php?alert=" . urlencode($alert) . "&err=0");
     exit();
 }
 ?>
