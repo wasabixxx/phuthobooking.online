@@ -298,7 +298,7 @@ $('#time').countdown('2024/01/01', function(event) {
 
         <div class="owl-carousel owl-theme mtop">
             <div class="item">
-                <p>"test gitfsdfsdsa"Với vai trò là chủ nhiệm đề tài của nền tảng đặt phòng khách sạn tỉnh Phú Thọ, tôi xin gửi lời tri ân
+                <p>"test "Với vai trò là chủ nhiệm đề tài của nền tảng đặt phòng khách sạn tỉnh Phú Thọ, tôi xin gửi lời tri ân
                     sâu sắc đến quý khách hàng đã tin tưởng và đồng hành cùng chúng tôi. Tôi đau đầu wa troi <br>
                 --mr. hêh--
                 </p>
