@@ -39,10 +39,10 @@
           </div>
           <p>Chúng tôi cam kết mang đến cho khách hàng trải nghiệm tuyệt vời nhất với dịch vụ chuyên nghiệp, sản phẩm chất lượng cao và tiện ích vượt trội. Với tầm nhìn hướng tới sự hoàn hảo, chúng tôi không ngừng cải tiến và sáng tạo để đáp ứng mọi nhu cầu của khách hàng, tạo dựng sự tin tưởng và đem lại giá trị bền vững.</p>
           <div class="social flex">
-            <a href="https://www.facebook.com/gakeugaumeo"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://x.com/tinedao19"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="https://www.instagram.com/khaoisme/"><i class="fab fa-instagram"></i></a>
-            <a href="https://github.com/tinedao"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.facebook.com/19.wasabi/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://x.com/wsb_khanh"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/19.wasabi/"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/wasabixxx"><i class="fa-brands fa-github"></i></a>
           </div>
         </div>
 
@@ -78,7 +78,7 @@
             </div>
             <div class="text">
               <h3>Address</h3>
-              <p>Phu Tho</p>
+              <p>Phu Tho / H-town - VIET NAM</p>
             </div>
           </div>
           <div class="icon flex">
@@ -87,7 +87,7 @@
             </div>
             <div class="text">
               <h3>Phone</h3>
-              <p>+0979499802</p>
+              <p>(+84) 886 345 204</p>
             </div>
           </div>
           <div class="icon flex">
@@ -96,7 +96,7 @@
             </div>
             <div class="text">
               <h3>Email</h3>
-              <p>tine.dao19@gmail.com</p>
+              <p>wsb.nnk@gmail.com</p>
             </div>
           </div>
         </div>

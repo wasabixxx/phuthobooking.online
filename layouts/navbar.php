@@ -65,7 +65,7 @@
             </div>
             <div class="head_contact">
                 <i class="fas fa-phone-volume"></i>
-                <span style=" padding: 0 10px">+0979499802</span>
+                <span style=" padding: 0 10px">(+84) 886 345 204</span>
             </div>
         </nav>
     </div>
