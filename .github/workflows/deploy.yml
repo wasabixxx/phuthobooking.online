@@ -1,4 +1,4 @@
-name: Deploy to Hosting via FTP
+name: Deploy to Hosting via FTP with Incremental Updates
 
 on:
   push:
@@ -12,12 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Upload to FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3 # Thay @main bằng @4.3.3
+      - name: Upload to FTP with Incremental Updates
+        uses: sebastianpopp/ftp-action@releases/v2
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_DIRECTORY }}
-          local-dir: ./
-          dangerous-clean-slate: true
+          remoteDir: ${{ secrets.FTP_DIRECTORY }}
+          localDir: "./"
+          # Không dùng --delete để tránh xóa file không có trong repo
+          # Chỉ upload file mới hoặc đã sửa
