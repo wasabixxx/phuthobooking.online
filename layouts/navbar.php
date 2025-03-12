@@ -12,10 +12,10 @@
 <section class="head">
     <div class="container flex1">
         <div class="scoial">
-            <i class="fab fa-facebook-f"></i>
-            <i class="fab fa-twitter"></i>
-            <i class="fab fa-instagram"></i>
-            <i class="fab fa-youtube"></i>
+            <a href="https://www.facebook.com/19.wasabi/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://x.com/wsb_khanh"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/19.wasabi/"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@19.wasabi"><i class="fab fa-youtube"></i></a>
         </div>
         <div class="logo">
             <a href="index.php"><img src="assets/img/logo.png"></a>
