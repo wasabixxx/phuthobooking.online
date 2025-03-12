@@ -13,11 +13,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Upload to FTP
-        uses: SamKirkland/FTP-Deploy-Action@main # Nâng cấp lên phiên bản mới nhất
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3 # Thay @main bằng @4.3.3
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ${{ secrets.FTP_DIRECTORY }}
           local-dir: ./
-          dangerous-clean-slate: true # Xóa toàn bộ file trong public_html trước khi upload
+          dangerous-clean-slate: true
