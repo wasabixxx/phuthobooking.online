@@ -27,7 +27,7 @@ $vouchers  = $db->select('hotel_voucher_info','',8);
     <section class="home" id="home">
         <div class="container">
             <h1>Phu Tho Booking</h1>
-            <p>Discover the place where you have fun & enjoy a lot</p>
+            <p>Discover the place where you have fun & enjoy a lott</p>
 
             <div class="content grid">
                 <div class="box">
