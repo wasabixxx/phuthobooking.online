@@ -4,9 +4,9 @@ class Database
     public $conn;
 
     private const DB_SERVER = "localhost";
-    private const DB_USERNAME = "wezqiceb_khanh";
-    private const DB_PASSWORD = "khanh2004";     
-    private const DB_NAME = "wezqiceb_khanh";
+    private const DB_USERNAME = "root";
+    private const DB_PASSWORD = "";     
+    private const DB_NAME = "pjtn";
 
     public function __construct()
     {
