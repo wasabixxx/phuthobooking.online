@@ -22,10 +22,7 @@ jobs:
 
       - name: Deploy with git-ftp
         run: |
-          # Xây dựng URL FTP đầy đủ
-          GIT_FTP_URL="ftp://wezqiceb:HgYuYxCT6F@103.97.126.29:21/domains/phuthobooking.online/public_html/"
-          echo "Deploying to $GIT_FTP_URL"
           # Khởi tạo lần đầu nếu chưa deploy
-          git ftp init -u "$GIT_FTP_URL" || true
+          git ftp init --user "wezqiceb" --passwd "HgYuYxCT6F" -n "103.97.126.29" --remote-root "/domains/phuthobooking.online/public_html/" || true
           # Đẩy các thay đổi
-          git ftp push -u "$GIT_FTP_URL"
+          git ftp push --user "wezqiceb" --passwd "HgYuYxCT6F" -n "103.97.126.29" --remote-root "/domains/phuthobooking.online/public_html/"
