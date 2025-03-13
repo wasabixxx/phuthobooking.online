@@ -1,18 +1,18 @@
 <?php
 $dir_url = "";
-    include('layouts/headerLogin.php');
-    include('layouts/alert.php')
+include('layouts/headerLogin.php');
+include('layouts/alert.php');
 ?>
         <div class="container-login100">
             <div class="wrap-login100">
                 
-                <form class="login100-form validate-form" action="action/login_action.php" method="post">
+                <form class="login100-form validate-form" action="/phuthobooking.online/action/login_action.php" method="post">
                 <a href="index.php"><img src="assets/img/logo.png" alt="logo" style="width: 100px; height: 100px; margin-left: 40%; border-radius: 50%; margin-bottom: 0px"></a>
                     <span class="login100-form-title p-b-43">
                         Login to continue
                     </span>
                     
-                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                         <input class="input100" type="text" name="email" required>
                         <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
@@ -58,5 +58,5 @@ $dir_url = "";
             </div>
         </div>
 <?php
-    include('layouts/footerLogin.php');
+include('layouts/footerLogin.php');
 ?>
