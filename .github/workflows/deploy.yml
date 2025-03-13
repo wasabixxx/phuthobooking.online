@@ -1,4 +1,4 @@
-name: Deploy to Hosting via FTP with Incremental Updates
+name: Deploy to Hosting via Git-FTP
 
 on:
   push:
@@ -11,14 +11,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Upload to FTP with Incremental Updates
-        uses: sebastianpopp/ftp-action@releases/v2
         with:
-          host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          remoteDir: ${{ secrets.FTP_DIRECTORY }}
-          localDir: "./"
-          # Không dùng --delete để tránh xóa file không có trong repo
-          # Chỉ upload file mới hoặc đã sửa
+          fetch-depth: 0 # Cần lịch sử Git đầy đủ để so sánh các commit
+
+      - name: Install git-ftp
+        run: sudo apt-get update && sudo apt-get install -y git-ftp
+
+      - name: Deploy with git-ftp
+        env:
+          GIT_FTP_URL: ftp://${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}@${{ secrets.FTP_HOST }}:21${{ secrets.FTP_DIRECTORY }}
+        run: |
+          # Khởi tạo lần đầu nếu chưa deploy
+          git ftp init || true
+          # Đẩy các thay đổi
+          git ftp push
