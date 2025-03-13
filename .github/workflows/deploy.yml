@@ -33,7 +33,7 @@ jobs:
           # Kiểm tra giá trị
           echo "Host: $FTP_HOST"
           echo "Username: $FTP_USERNAME"
-          echo "Password: $FTP_PASSWORD" # Debug để kiểm tra
+          echo "Password: $FTP_PASSWORD"
           echo "Directory: $FTP_DIRECTORY"
           # Khởi tạo lần đầu nếu chưa deploy
           git ftp init -u "$GIT_FTP_URL" || true
