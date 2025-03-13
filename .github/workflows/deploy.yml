@@ -21,8 +21,13 @@ jobs:
           git-ftp --version # Kiểm tra phiên bản
 
       - name: Deploy with git-ftp
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIRECTORY: ${{ secrets.FTP_DIRECTORY }}
         run: |
           # Khởi tạo lần đầu nếu chưa deploy
-          git ftp init --user "wezqiceb" --passwd "HgYuYxCT6F" -n "103.97.126.29" --remote-root "/domains/phuthobooking.online/public_html/" || true
+          git ftp init --user "$FTP_USERNAME" --passwd "$FTP_PASSWORD" -n "$FTP_HOST" --remote-root "$FTP_DIRECTORY" || true
           # Đẩy các thay đổi
-          git ftp push --user "wezqiceb" --passwd "HgYuYxCT6F" -n "103.97.126.29" --remote-root "/domains/phuthobooking.online/public_html/"
+          git ftp push --user "$FTP_USERNAME" --passwd "$FTP_PASSWORD" -n "$FTP_HOST" --remote-root "$FTP_DIRECTORY"
