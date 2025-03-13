@@ -19,19 +19,14 @@ jobs:
 
       - name: Deploy with git-ftp
         env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_DIRECTORY: ${{ secrets.FTP_DIRECTORY }}
+          GIT_FTP_URL: ftp://${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}@${{ secrets.FTP_HOST }}:21${{ secrets.FTP_DIRECTORY }}
         run: |
-          # Xây dựng URL FTP
-          GIT_FTP_URL="ftp://$FTP_USERNAME:$FTP_PASSWORD@$FTP_HOST:21$FTP_DIRECTORY"
           echo "Deploying to $GIT_FTP_URL"
           # Kiểm tra giá trị
-          echo "Host: $FTP_HOST"
-          echo "Username: $FTP_USERNAME"
-          echo "Directory: $FTP_DIRECTORY"
+          echo "Host: ${{ secrets.FTP_HOST }}"
+          echo "Username: ${{ secrets.FTP_USERNAME }}"
+          echo "Directory: ${{ secrets.FTP_DIRECTORY }}"
           # Khởi tạo lần đầu nếu chưa deploy
-          git ftp init --url "$GIT_FTP_URL" || true
+          git ftp init || true
           # Đẩy các thay đổi
-          git ftp push --url "$GIT_FTP_URL"
+          git ftp push
