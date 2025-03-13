@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Cần lịch sử Git đầy đủ để so sánh các commit
+          fetch-depth: 0 # Cần lịch sử Git đầy đủ để so sánh
 
       - name: Install git-ftp
         run: sudo apt-get update && sudo apt-get install -y git-ftp
@@ -21,6 +21,7 @@ jobs:
         env:
           GIT_FTP_URL: ftp://${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}@${{ secrets.FTP_HOST }}:21${{ secrets.FTP_DIRECTORY }}
         run: |
+          echo "Deploying to $GIT_FTP_URL"
           # Khởi tạo lần đầu nếu chưa deploy
           git ftp init || true
           # Đẩy các thay đổi
