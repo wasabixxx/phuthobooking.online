@@ -7,19 +7,19 @@ $db = new Database();
 $locations = $db->select('locations');
 
 $conditionHotel = "status = 1";
-$hotels = $db->select('hotels',$conditionHotel,4);
-$vouchers  = $db->select('hotel_voucher_info','',8);
+$hotels = $db->select('hotels', $conditionHotel, 4);
+$vouchers  = $db->select('hotel_voucher_info', '', 8);
 ?>
 <style>
-.locationOp {
-    width: 100%;
-    padding: 10px 20px;
-    border: none;
-}
+    .locationOp {
+        width: 100%;
+        padding: 10px 20px;
+        border: none;
+    }
 
-.locationOp:focus {
-    border: none;
-}
+    .locationOp:focus {
+        border: none;
+    }
 </style>
 
 
@@ -35,19 +35,19 @@ $vouchers  = $db->select('hotel_voucher_info','',8);
                     <select class="locationOp" name="location" required>
                         <option value="">Chọn huyện</option>
                         <?php
-            foreach ($locations as $location) {
-              echo "<option value='{$location['id']}'>" . htmlspecialchars($location['name']) . "</option>";
-            }
-            ?>
+                        foreach ($locations as $location) {
+                            echo "<option value='{$location['id']}'>" . htmlspecialchars($location['name']) . "</option>";
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="box">
                     <span>ARRIVAL DATE</span> <br>
-                    <input type="date" name="arrival_date" >
+                    <input type="date" name="arrival_date">
                 </div>
                 <div class="box">
                     <span>DEPARTURE DATE</span> <br>
-                    <input type="date" name="departure_date" >
+                    <input type="date" name="departure_date">
                 </div>
                 <div class="box">
                     <button class="flex1" type="submit">
@@ -101,7 +101,7 @@ $vouchers  = $db->select('hotel_voucher_info','',8);
 
         <div class="content grid mtop">
             <div class="box">
-                <div class="img" >
+                <div class="img">
                     <img src="assets/img/s2.jpg" alt="">
                     <span>TRAVEL</span>
                 </div>
@@ -141,24 +141,24 @@ $vouchers  = $db->select('hotel_voucher_info','',8);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
 <script>
-$('.owl-carousel').owlCarousel({
-    loop: true,
-    margin: 10,
-    nav: true,
-    dots: false,
-    navText: ["<i class='far fa-long-arrow-alt-left'></i>", "<i class='far fa-long-arrow-alt-right'></i>"],
-    responsive: {
-        0: {
-            items: 1
-        },
-        768: {
-            items: 1
-        },
-        1000: {
-            items: 1
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        dots: false,
+        navText: ["<i class='far fa-long-arrow-alt-left'></i>", "<i class='far fa-long-arrow-alt-right'></i>"],
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
         }
-    }
-})
+    })
 </script>
 
 
@@ -181,14 +181,14 @@ $('.owl-carousel').owlCarousel({
 <script src="js/jquery.countdown.js" charset="utf-8"></script>
 <script src="js/jquery.countdown.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-$('#time').countdown('2024/01/01', function(event) {
-    $(this).html(event.strftime(
-        '<div class="clock"><span>%d</span> <p>Days</p></div> ' +
-        '<div class="clock"><span>%H</span> <p>Hours</p></div> ' +
-        '<div class="clock"><span>%M</span> <p>Minutes</p></div> ' +
-        '<div class="clock"><span>%S</span> <p>Seconds</p></div> '
-    ));
-});
+    $('#time').countdown('2024/01/01', function(event) {
+        $(this).html(event.strftime(
+            '<div class="clock"><span>%d</span> <p>Days</p></div> ' +
+            '<div class="clock"><span>%H</span> <p>Hours</p></div> ' +
+            '<div class="clock"><span>%M</span> <p>Minutes</p></div> ' +
+            '<div class="clock"><span>%S</span> <p>Seconds</p></div> '
+        ));
+    });
 </script>
 
 
@@ -201,47 +201,47 @@ $('#time').countdown('2024/01/01', function(event) {
 
         <div class="content grid2 mtop">
             <?php
-        if ($hotels) {
-            foreach ($hotels as $hotel) {
-                echo "<div class='box flex'>";
-                echo "<div class='left imgHotels'>";
-                echo "<img src='assets/upload/imgHotels/".$hotel['photo']."' alt=''>";
-                echo "</div>";
-                echo "<div class='right'>";
-                echo "<h4 class='titleHotel'>".$hotel['name']."</h4>";
-                echo "<div class='rate flex'>";
-                echo "<small style='color: black; margin-top: 10px;'><address>Địa chỉ: ".$hotel['address']."</address></small>";
-                echo "</div>";
-                echo "<div class='rate flex'>";
-                for ($i = 0; $i < 5; $i++) {
-                    if ($i < $hotel['stars']) {
-                        echo "<i class='fas fa-star'></i>";
-                    } else {
-                        echo "<i class='far fa-star'></i>";
+            if ($hotels) {
+                foreach ($hotels as $hotel) {
+                    echo "<div class='box flex'>";
+                    echo "<div class='left imgHotels'>";
+                    echo "<img src='assets/upload/imgHotels/" . $hotel['photo'] . "' alt=''>";
+                    echo "</div>";
+                    echo "<div class='right'>";
+                    echo "<h4 class='titleHotel'>" . $hotel['name'] . "</h4>";
+                    echo "<div class='rate flex'>";
+                    echo "<small style='color: black; margin-top: 10px;'><address>Địa chỉ: " . $hotel['address'] . "</address></small>";
+                    echo "</div>";
+                    echo "<div class='rate flex'>";
+                    for ($i = 0; $i < 5; $i++) {
+                        if ($i < $hotel['stars']) {
+                            echo "<i class='fas fa-star'></i>";
+                        } else {
+                            echo "<i class='far fa-star'></i>";
+                        }
                     }
+                    echo "</div>";
+                    echo "<p>" . $hotel['description'] . "</p>";
+                    echo "<h5>From " . number_format($hotel['starting_price']) . " VND/night</h5>";
+                    echo "<a href='rooms.php?hotel_id=" . $hotel['id'] . "'>";
+                    echo "<button class='flex1'>";
+                    echo "<span>Book</span>";
+                    echo "<i class='fas fa-arrow-circle-right'></i>";
+                    echo "</button>";
+                    echo "</a>";
+                    echo "</div>";
+                    echo "</div>";
                 }
-                echo "</div>";
-                echo "<p>".$hotel['description']."</p>";
-                echo "<h5>From ".number_format($hotel['starting_price'])." VND/night</h5>";
-                echo "<a href='rooms.php?hotel_id=".$hotel['id']."'>";
-                echo "<button class='flex1'>";
-                echo "<span>Book</span>";
-                echo "<i class='fas fa-arrow-circle-right'></i>";
-                echo "</button>";
-                echo "</a>";
-                echo "</div>";
-                echo "</div>";
+            } else {
+                echo "<p>No hotels found.</p>";
             }
-        } else {
-            echo "<p>No hotels found.</p>";
-        }
-        ?>
+            ?>
 
-        <a href="hotels.php">
-            <div class="more">
-                <span>Xem thêm</span>
-            </div>
-        </a>
+            <a href="hotels.php">
+                <div class="more">
+                    <span>Xem thêm</span>
+                </div>
+            </a>
         </div>
     </div>
 </section>
@@ -257,35 +257,35 @@ $('#time').countdown('2024/01/01', function(event) {
 
         <div class="content grid  top">
             <?php
-              foreach ($vouchers as $voucher) {
-                  echo '<div class="box">';
-                  echo '<h5>DISCOUNT - ' . htmlspecialchars(number_format($voucher['discount'])) . '%</h5>';
-                  echo '<h3>' . htmlspecialchars($voucher['hotel_name']) . '</h3>';
-                  echo '<span>';
-                  echo str_repeat('<i class="fas fa-star"></i>', floor($voucher['stars'])); 
-                  if ($voucher['stars'] - floor($voucher['stars']) >= 0.5) {
-                      echo '<i class="fas fa-star-half-alt"></i>'; 
-                  }
-                  echo str_repeat('<i class="far fa-star"></i>', 5 - ceil($voucher['stars'])); 
-                  echo '<label>(' . $voucher['review_count'] . ' Reviews)</label>';
-                  echo '</span>';
-                  echo '<div class="flex timeV">';
-                  echo '<i class="fal fa-alarm-clock"> Thời gian áp dụng: ' . htmlspecialchars($voucher['voucher_start_date']) . ' - ' . htmlspecialchars($voucher['voucher_end_date']) . '</i>';
-                  echo '</div>';
-                  echo '<a href="rooms.php?hotel_id=' . $voucher['hotel_id'] . '">';
-                  echo '<button class="flex1">';
-                  echo '<span>Click để xem thêm</span>';
-                  echo '<i class="fas fa-arrow-circle-right"></i>';
-                  echo '</button>';
-                  echo '</a>';
-                  echo '</div>';
-              }
-?>
-        <a href="voucher.php">
-            <div class="more">
-                <span>Xem thêm</span>
-            </div>
-        </a>
+            foreach ($vouchers as $voucher) {
+                echo '<div class="box">';
+                echo '<h5>DISCOUNT - ' . htmlspecialchars(number_format($voucher['discount'])) . '%</h5>';
+                echo '<h3>' . htmlspecialchars($voucher['hotel_name']) . '</h3>';
+                echo '<span>';
+                echo str_repeat('<i class="fas fa-star"></i>', floor($voucher['stars']));
+                if ($voucher['stars'] - floor($voucher['stars']) >= 0.5) {
+                    echo '<i class="fas fa-star-half-alt"></i>';
+                }
+                echo str_repeat('<i class="far fa-star"></i>', 5 - ceil($voucher['stars']));
+                echo '<label>(' . $voucher['review_count'] . ' Reviews)</label>';
+                echo '</span>';
+                echo '<div class="flex timeV">';
+                echo '<i class="fal fa-alarm-clock"> Thời gian áp dụng: ' . htmlspecialchars($voucher['voucher_start_date']) . ' - ' . htmlspecialchars($voucher['voucher_end_date']) . '</i>';
+                echo '</div>';
+                echo '<a href="rooms.php?hotel_id=' . $voucher['hotel_id'] . '">';
+                echo '<button class="flex1">';
+                echo '<span>Click để xem thêm</span>';
+                echo '<i class="fas fa-arrow-circle-right"></i>';
+                echo '</button>';
+                echo '</a>';
+                echo '</div>';
+            }
+            ?>
+            <a href="voucher.php">
+                <div class="more">
+                    <span>Xem thêm</span>
+                </div>
+            </a>
         </div>
     </div>
 </section>
@@ -300,7 +300,7 @@ $('#time').countdown('2024/01/01', function(event) {
             <div class="item">
                 <p>Với vai trò là chủ nhiệm đề tài của nền tảng đặt phòng khách sạn tỉnh Phú Thọ, tôi xin gửi lời tri ân
                     sâu sắc đến quý khách hàng đã tin tưởng và đồng hành cùng chúng tôi. Tôi đau đầu wa troi <br>
-                --mr. hêh--
+                    --mr. hêh--
                 </p>
                 <div class="admin flex">
                     <div class="img">
@@ -367,27 +367,27 @@ $('#time').countdown('2024/01/01', function(event) {
     </div>
 </section>
 <script>
-$('.owl-carousel').owlCarousel({
-    loop: true,
-    margin: 10,
-    nav: false,
-    dots: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    autoplayHoverPause: true,
-    navText: ["<i class='far fa-long-arrow-alt-left'></i>", "<i class='far fa-long-arrow-alt-right'></i>"],
-    responsive: {
-        0: {
-            items: 1
-        },
-        768: {
-            items: 1
-        },
-        1000: {
-            items: 1
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        autoplayHoverPause: true,
+        navText: ["<i class='far fa-long-arrow-alt-left'></i>", "<i class='far fa-long-arrow-alt-right'></i>"],
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
         }
-    }
-})
+    })
 </script>
 
 
