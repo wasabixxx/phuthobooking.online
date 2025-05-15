@@ -1,23 +1,47 @@
 <?php
 include('../config/database.php');
 session_start();
+
+// Nếu chưa đăng nhập thì về trang login
 if (!isset($_SESSION['email'])) {
     header("location: login.php");
     exit();
 }
 
+// Thiết lập page
 $role = "owner";
 $page = "rooms";
 include('../layouts/headerAd.php');
+
+// Khởi tạo database
 $db = new Database();
+
+// Lấy thông tin owner
 $owners = $db->select("owners", "email = '$_SESSION[email]'", 1);
+if (!$owners) {
+    echo "<div class='container'><h2>Không tìm thấy tài khoản owner với email này.</h2></div>";
+    include('../layouts/footerAd.php');
+    exit();
+}
 $owner = $owners[0];
 $owner_id = $owner['id'];
 
+// Lấy thông tin khách sạn
 $hotel = $db->select("hotels", "owner_id = $owner_id", 1);
+if ($hotel) {
+    $hotel_id = $hotel[0]['id'];
+
+    // Lấy danh sách phòng
+    $rooms = $db->select("rooms", "hotel_id = $hotel_id");
+} else {
+    $hotel = null;
+    $hotel_id = null;
+    $rooms = [];
+}
+
+// Lấy danh sách loại phòng
 $room_types = $db->select("room_types");
-$hotel_id = $hotel[0]['id'];
-$rooms = $db->select("rooms", "hotel_id = " . $hotel_id);
+
 ?>
 <style>
 .table th, .table td {
@@ -31,14 +55,12 @@ $rooms = $db->select("rooms", "hotel_id = " . $hotel_id);
 }
 </style>
 
-<?php 
-if ($hotel != null && $room_types != null):
-?>
+<?php if ($hotel && $room_types): ?>
 <div class="card shadow p-4 mb-4">
     <h4 class="card-title mb-3">Thêm Phòng Mới</h4>
     <form action="action/room_handle.php" method="POST" enctype="multipart/form-data">
-        <input type="text" name="action" value="add" hidden>    
-        <input type="text" name="hotel_id" value="<?php echo $hotel[0]['id']; ?>" hidden>
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="hotel_id" value="<?php echo $hotel_id; ?>">
 
         <div class="row g-3">
             <div class="col-md-6">
@@ -49,15 +71,13 @@ if ($hotel != null && $room_types != null):
                 <label for="type_id" class="form-label">Loại Phòng</label>
                 <select name="type_id" id="type_id" class="form-control" required>
                     <option value="">-- Chọn loại phòng --</option>
-                    <?php
-                    $room_types = $db->select("room_types");
-                    foreach ($room_types as $type):
-                    ?>
+                    <?php foreach ($room_types as $type): ?>
                         <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
         </div>
+
         <div class="mt-4">
             <button type="submit" class="btn btn-success w-100">Thêm Phòng</button>
         </div>
@@ -74,26 +94,28 @@ if ($hotel != null && $room_types != null):
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($rooms as $room): ?>
-            <tr>
-                <td><?= $room['name'] ?></td>
-                <td><?= $room['status'] == 1 ? 'Đang Thuê' : 'Sẵn Sàng' ?></td>
-                <td>
-                    <a href="action/room_handle.php?action=delete&id=<?= $room['id'] ?>&hotel_id=<?= $hotel[0]['id'] ?>" class="btn btn-danger btn-sm">Xóa</a>
-                </td>
-            </tr>
-            <?php endforeach; ?>
+            <?php if ($rooms): ?>
+                <?php foreach ($rooms as $room): ?>
+                    <tr>
+                        <td><?= $room['name'] ?></td>
+                        <td><?= $room['status'] == 1 ? 'Đang Thuê' : 'Sẵn Sàng' ?></td>
+                        <td>
+                            <a href="action/room_handle.php?action=delete&id=<?= $room['id'] ?>&hotel_id=<?= $hotel_id ?>" class="btn btn-danger btn-sm">Xóa</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr><td colspan="3">Chưa có phòng nào trong khách sạn này.</td></tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
 
-<?php
-else:
-?>
+<?php else: ?>
 <div class="container">
-    <h1>BẠN CẦN CÓ KHÁCH SẠN HOẶC LOẠI PHÒNG TRƯỚC</h1>
+    <h1>BẠN CẦN CÓ KHÁCH SẠN VÀ LOẠI PHÒNG TRƯỚC</h1>
+    <p>Vui lòng thêm khách sạn và loại phòng trước khi quản lý phòng.</p>
 </div>
-<?php
-endif;
-include('../layouts/footerAd.php');
-?>
+<?php endif; ?>
+
+<?php include('../layouts/footerAd.php'); ?>
