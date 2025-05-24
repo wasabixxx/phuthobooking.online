@@ -60,6 +60,44 @@ $vouchers  = $db->select('hotel_voucher_info','',8);
     </section>
 </form>
 
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const arrivalDate = document.querySelector('input[name="arrival_date"]').value;
+        const departureDate = document.querySelector('input[name="departure_date"]').value;
+
+        // Lấy ngày hiện tại
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Đặt lại giờ để so sánh chỉ với ngày (không tính giờ)
+
+        // Kiểm tra nếu ngày đến và ngày đi hợp lệ
+        if (arrivalDate && departureDate) {
+            const arrival = new Date(arrivalDate);
+            const departure = new Date(departureDate);
+
+            // Kiểm tra nếu ngày đến trước ngày đi
+            if (arrival > departure) {
+                alert("Ngày đi không thể trước ngày đến.");
+                event.preventDefault(); // Ngừng gửi form
+                return;
+            }
+
+            // Kiểm tra nếu ngày đến hoặc ngày đi là ngày trong quá khứ
+            if (arrival < today) {
+                alert("Ngày đến không thể là ngày trong quá khứ.");
+                event.preventDefault(); // Ngừng gửi form
+                return;
+            }
+
+            if (departure < today) {
+                alert("Ngày đi không thể là ngày trong quá khứ.");
+                event.preventDefault(); // Ngừng gửi form
+                return;
+            }
+        }
+    });
+</script>
+
+
 
 <section class="about" id="about">
     <div class="container">

@@ -10,6 +10,7 @@ class Database
 
     public function __construct()
     {
+        // Kết nối với cơ sở dữ liệu
         $this->conn = new mysqli(self::DB_SERVER, self::DB_USERNAME, self::DB_PASSWORD, self::DB_NAME);
 
         if ($this->conn->connect_error) {
@@ -17,28 +18,30 @@ class Database
         }
 
         $this->conn->set_charset("utf8mb4");
+
+        // Cập nhật trạng thái voucher
         $this->conn->query("UPDATE vouchers
-SET status = CASE
-    WHEN start_date <= CURDATE() AND end_date >= CURDATE() THEN 1
-    ELSE 0
-END;");
+            SET status = CASE
+                WHEN start_date <= CURDATE() AND end_date >= CURDATE() THEN 1
+                ELSE 0
+            END;");
     }
 
+    // Phương thức insert
     public function insert($table, $data)
     {
-        $columns = implode(", ", array_keys($data));
+        $columns = implode(", ", array_keys($data)); // Tạo danh sách các cột
+        $placeholders = implode(", ", array_fill(0, count($data), "?")); // Tạo các dấu hỏi cho các tham số
 
-        $placeholders = implode(", ", array_fill(0, count($data), "?"));
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)"; // Câu lệnh SQL
 
-        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-        // var_dump($sql);
-        // exit();
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("Failed to prepare statement: " . $this->conn->error);
             return false;
         }
 
+        // Xác định loại dữ liệu và bind tham số vào câu lệnh
         $types = "";
         $values = [];
         foreach ($data as $value) {
@@ -46,7 +49,9 @@ END;");
             $values[] = $value;
         }
 
-        $stmt->bind_param($types, ...$values);
+        $stmt->bind_param($types, ...$values); // Bind các tham số vào câu lệnh
+
+        // Thực thi câu lệnh
         if (!$stmt->execute()) {
             error_log("Insert query failed: " . $stmt->error);
             return false;
@@ -55,6 +60,7 @@ END;");
         return true;
     }
 
+    // Phương thức update
     public function update($table, $id, $data)
     {
         $set = "";
@@ -66,7 +72,6 @@ END;");
             $types .= $this->getType($value);
             $values[] = $value;
         }
-        var_dump($data);
         $set = rtrim($set, ", ");
 
         $sql = "UPDATE $table SET $set WHERE id = ?";
@@ -90,22 +95,22 @@ END;");
         return true;
     }
 
+    // Xác định loại dữ liệu cho bind_param
     private function getType($value)
     {
         if (is_int($value)) {
-            return "i";
+            return "i";  // 'i' cho integer
         } elseif (is_float($value)) {
-            return "d";
+            return "d";  // 'd' cho double (float)
         } elseif (is_string($value)) {
-            return "s";
+            return "s";  // 's' cho string
         } elseif (is_null($value)) {
-            return "s";
+            return "s";  // 's' cho NULL (bạn có thể thay đổi nếu muốn xử lý khác)
         }
-        return "s";
+        return "s";  // Mặc định là string
     }
 
-
-
+    // Lấy một bản ghi theo ID
     public function getById($table, $id)
     {
         $sql = "SELECT * FROM $table WHERE id = $id";
@@ -118,6 +123,7 @@ END;");
         return $result->fetch_assoc();
     }
 
+    // Lấy nhiều bản ghi
     public function select($table, $condition = "", $limit = "")
     {
         $sql = "SELECT * FROM $table";
@@ -141,42 +147,12 @@ END;");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-
-    public function uploadImage($file, $target_dir, &$alert)
-    {
-        if (!is_dir($target_dir)) {
-            mkdir($target_dir, 0777, true);
-        }
-
-        $imageFileType = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
-        $token = bin2hex(random_bytes(16));
-        $target_file = $target_dir . $token . "." . $imageFileType;
-
-        if ($file["size"] > 5000000) {
-            $alert = "Sorry, your file is too large.";
-            return false;
-        }
-
-        $allowed_types = ["jpg", "png", "jpeg", "gif"];
-        if (!in_array($imageFileType, $allowed_types)) {
-            $alert = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            return false;
-        }
-
-        if (!move_uploaded_file($file["tmp_name"], $target_file)) {
-            $alert = "Sorry, there was an error uploading your file.";
-            return false;
-        }
-
-        return $token . "." . $imageFileType;
-    }
-
+    // Hàm xóa bản ghi theo ID
     public function delete($table, $id)
     {
         $sql = "DELETE FROM $table WHERE id = $id";
         $this->conn->query($sql);
     }
-
 
     public function __destruct()
     {
