@@ -27,7 +27,7 @@ try {
     //Recipients
     $mail->setFrom('wsb.nnk@gmail.com', 'PHUTHOBOOKING.ONLINE');
     $mail->addAddress($userMail, 'Quy khach hang');     //Add a recipient
-    $mail->addReplyTo('wsb.nnk@gmail.com', 'Information');
+    $mail->addReplyTo('wsb.nnk@gmail.com', 'E le tan Phu tho booking he he he');
 
     //Attachments
     // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
