@@ -25,9 +25,9 @@ try {
     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('wsb.nnk@gmail.com', 'Mailer');
-    $mail->addAddress($userMail, 'Joe User');     //Add a recipient
-    $mail->addReplyTo('info@example.com', 'Information');
+    $mail->setFrom('wsb.nnk@gmail.com', 'PHUTHOBOOKING.ONLINE');
+    $mail->addAddress($userMail, 'Quy khach hang');     //Add a recipient
+    $mail->addReplyTo('wsb.nnk@gmail.com', 'Information');
 
     //Attachments
     // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments

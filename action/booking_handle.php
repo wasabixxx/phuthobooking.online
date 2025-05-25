@@ -97,7 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $subjectMail = "Booking Room Success";
 
         $bodyMail = "
-        
+        <h2> Cảm ơn quý khách đã đặt phòng tại phuthobooking.online <br> Vui lòng cọc thanh toán 10% số tiền đặt phòng bên dưới trong vòng 30 phút kể từ lúc nhận mail này  </h2>
+        <img src='https://img.vietqr.io/image/MB-446619999-print.png?amount=". number_format($DetailBooking['totalPrice'] * 0.1, 0, ',', '.') ."&addInfo=Thanh%20toan%20". urlencode('Thanh toán cọc cho phòng '.$DetailBooking['room_name'])."%20". urlencode(date('d/m/Y H:i:s'))."%20SĐT%3A".urlencode($DetailBooking['phone_number'])."&accountName=NGUYEN%20NGOC%20KHANH' alt='QR Code' width='350' height='auto'>
+        <p> THÔNG TIN CHI TIẾT ĐẶT PHÒNG  </p>
         <table border='1'>
             <thead>
                 <tr>
